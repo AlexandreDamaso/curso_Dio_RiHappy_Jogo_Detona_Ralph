@@ -3,10 +3,10 @@ const state = {
       squares: document.querySelectorAll(".square"),
       enemy: document.querySelector(".enemy"),
       timeLeft: document.querySelector("#time-left"),
-      score: document.querySelector("#score")
+      score: document.querySelector("#score"),
    },
    value: {
-      timeId: null,
+      timerId: null,
       gameVelocity: 1000,
    },
 };
@@ -22,7 +22,7 @@ function randomSquare() {
 }
 
 function moveEnemy() {
-   state.values.timeId - setInterval(randomSquare, gameVelocity);
+   state.value.timerId = setInterval(randomSquare, state.value.gameVelocity);
 }
 
 function addListenerHitBox() {
@@ -32,7 +32,8 @@ function addListenerHitBox() {
 };
 
 function initialize() {
-   randomSquare();
+   // randomSquare();
+   moveEnemy();
 };
 
 initialize();
