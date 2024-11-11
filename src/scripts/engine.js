@@ -6,12 +6,28 @@ const state = {
       score: document.querySelector("#score"),
    },
    value: {
-      timerId: null,
       gameVelocity: 1000,
       hitPosition: 0,
       result: 0,
+      currentTime: 60,
    },
+   action: {
+      timerId: null,
+      countDownTimerId: setInterval(countDown, 1000),
+   }
 };
+
+
+function countDown() {
+   state.value.currentTime--;
+   state.view.timeLeft.textContent = state.value.currentTime;
+
+   if (state.value.currentTime <= 0) {
+      clearInterval(state.action.countDownTimerId);
+      clearInterval(state.action.timerId);
+      alert("Game Over! O seu resultado foi " + state.value.result);
+   }
+}
 
 function randomSquare() {
    state.view.squares.forEach((square) => {
