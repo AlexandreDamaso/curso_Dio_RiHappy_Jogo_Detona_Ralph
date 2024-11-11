@@ -12,11 +12,16 @@ const state = {
       currentTime: 60,
    },
    action: {
-      timerId: null,
+      timerId: setInterval(randomSquare, 1000),
       countDownTimerId: setInterval(countDown, 1000),
    }
 };
 
+function playSound(audioName) {
+   let audio = new Audio(`./src/audios/${audioName}.m4a`);
+   audio.volume = 0.2;
+   audio.play();
+}
 
 function countDown() {
    state.value.currentTime--;
@@ -40,10 +45,6 @@ function randomSquare() {
    state.value.hitPosition = randomSquare.id;
 }
 
-function moveEnemy() {
-   state.value.timerId = setInterval(randomSquare, state.value.gameVelocity);
-}
-
 function addListenerHitBox() {
    state.view.squares.forEach((square) => {
       square.addEventListener("mousedown", () => {
@@ -51,14 +52,13 @@ function addListenerHitBox() {
             state.value.result++;
             state.view.score.textContent = state.value.result;
             state.value.hitPosition = null;
+            playSound("hit");
          }
       })
    })
 };
 
 function initialize() {
-   // randomSquare();
-   moveEnemy();
    addListenerHitBox();
 };
 
